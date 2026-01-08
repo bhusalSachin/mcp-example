@@ -123,12 +123,6 @@ uv run client/main.py server/main.py
 
 ---
 
-## 📜 License
-
-MIT License (or your preferred license)
-
----
-
 ## 🙌 Acknowledgements
 
 - https://modelcontextprotocol.io/
