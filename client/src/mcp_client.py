@@ -6,11 +6,12 @@ from anthropic import Anthropic
 from dotenv import load_dotenv
 from mcp import ClientSession, StdioServerParameters
 from mcp.client.stdio import stdio_client
+import os
 
-load_dotenv()  # load environment variables from .env
+load_dotenv()
 
 # Claude model constant
-ANTHROPIC_MODEL = "claude-sonnet-4-5"
+ANTHROPIC_MODEL = os.getenv("ANTHROPIC_MODEL")
 
 
 class MCPClient:
@@ -50,6 +51,7 @@ class MCPClient:
 
     async def process_query(self, query: str) -> str:
         """Process a query using Claude and available tools"""
+        print("Anthropic model loaded: ", ANTHROPIC_MODEL)
         messages = [{"role": "user", "content": query}]
 
         response = await self.session.list_tools()
@@ -97,6 +99,7 @@ class MCPClient:
         """Run an interactive chat loop"""
         print("\nMCP Client Started!")
         print("Type your queries or 'quit' to exit.")
+        print("Anrthropic model connected:", ANTHROPIC_MODEL)
 
         while True:
             try:
