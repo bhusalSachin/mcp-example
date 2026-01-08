@@ -27,19 +27,15 @@ class MCPClient:
             server_script_path: Path to the server script (.py or .js)
         """
         is_python = server_script_path.endswith(".py")
-        is_js = server_script_path.endswith(".js")
-        if not (is_python or is_js):
-            raise ValueError("Server script must be a .py or .js file")
+        if not (is_python):
+            raise ValueError("Server script must be a .py file")
 
-        if is_python:
-            path = Path(server_script_path).resolve()
-            server_params = StdioServerParameters(
-                command="uv",
-                args=["--directory", str(path.parent), "run", path.name],
-                env=None,
-            )
-        else:
-            server_params = StdioServerParameters(command="node", args=[server_script_path], env=None)
+        path = Path(server_script_path).resolve()
+        server_params = StdioServerParameters(
+            command="uv",
+            args=["--directory", str(path.parent), "run", path.name],
+            env=None,
+        )
 
         stdio_transport = await self.exit_stack.enter_async_context(stdio_client(server_params))
         self.stdio, self.write = stdio_transport
