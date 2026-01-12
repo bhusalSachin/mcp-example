@@ -1,8 +1,6 @@
-from src.app import mcp
 from src.constants import NWS_API_BASE
 from src.utils.helpers import make_nws_request, format_alert
 
-@mcp.tool()
 async def get_alerts(state: str) -> str:
     """Get weather alerts for a US state.
 
